@@ -2,7 +2,7 @@ apiVersion: kuma.io/v1alpha1
 kind: HealthCheck
 metadata:
   name: frontend-to-backend
-  namespace: kong-mesh-demo
+  namespace: kuma-demo
 mesh: default
 spec:
   sources:
@@ -16,3 +16,19 @@ spec:
     timeout: 2s
     unhealthyThreshold: 3
     healthyThreshold: 1
+    tcp:
+      send: Zm9v
+      receive:
+      - YmFy
+      - YmF6
+    http:
+      path: /health
+      requestHeadersToAdd:
+      - append: false
+        header:
+          key: Content-Type
+          value: application/json
+      - header:
+          key: Accept
+          value: application/json
+      expectedStatuses: [200, 201]
