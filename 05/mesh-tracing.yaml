@@ -29,14 +29,6 @@ spec:
         skipMTLS: false
         tags:
           kuma.io/service: dataplane-metrics
-  tracing:
-    defaultBackend: jaeger-collector
-    backends:
-    - name: jaeger-collector
-      type: zipkin
-      sampling: 100.0
-      conf:
-        url: http://jaeger-collector.kuma-tracing:9411/api/v2/spans
   logging:
       defaultBackend: loki
       backends:
@@ -44,4 +36,12 @@ spec:
           type: file
           conf:
             path: /dev/stdout
-            address: loki.kuma-logging:3100
+            address: loki.kong-mesh-logging:3100
+  tracing:
+    defaultBackend: jaeger-collector
+    backends:
+    - name: jaeger-collector
+      type: zipkin
+      sampling: 100.0
+      conf:
+        url: http://jaeger-collector.kong-mesh-tracing:9411/api/v2/spans
